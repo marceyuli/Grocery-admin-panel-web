@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide MenuController;
 import 'package:grocery_admin_panel/consts/constants.dart';
 import 'package:grocery_admin_panel/responsive.dart';
+import 'package:grocery_admin_panel/screens/add_prod.dart';
+import 'package:grocery_admin_panel/services/global_method.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/buttons.dart';
 import 'package:grocery_admin_panel/widgets/grid_products.dart';
@@ -43,7 +45,15 @@ class DashboardScreen extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   Spacer(),
-                  ButtonsWidget(onPressed: (){}, text: 'Add product', icon: Icons.add, backgroundColor: Colors.blue)
+                  ButtonsWidget(
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                            ctx: context,
+                            routeName: UploadProductForm.routeName);
+                      },
+                      text: 'Add product',
+                      icon: Icons.add,
+                      backgroundColor: Colors.blue)
                 ],
               ),
             ),

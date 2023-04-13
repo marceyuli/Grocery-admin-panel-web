@@ -1,2 +1,2 @@
 
-const defaultPadding = 16.0;
+const defaultPadding = 5.0;

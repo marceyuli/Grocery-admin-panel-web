@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide MenuController ;
 import 'package:grocery_admin_panel/consts/constants.dart';
 import 'package:grocery_admin_panel/widgets/header.dart';
+import 'package:grocery_admin_panel/widgets/products_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/MenuController.dart';
@@ -28,6 +29,7 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: const [
+                      ProductWdiget(),
                       // MyProductsHome(),
                       // SizedBox(height: defaultPadding),
                       // OrdersScreen(),

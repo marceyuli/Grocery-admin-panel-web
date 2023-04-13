@@ -23,6 +23,8 @@ class UploadProductForm extends StatefulWidget {
 class _UploadProductFormState extends State<UploadProductForm> {
   final formKey = GlobalKey<FormState>();
   String catValue = 'Vegetables';
+  int groupValue = 1;
+  bool isPiece = false;
 
   late final TextEditingController titleController, priceController;
 
@@ -180,6 +182,34 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                           ),
                                           const SizedBox(
                                             height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              TextWidget(
+                                                  text: 'KG', color: color),
+                                              Radio(
+                                                  value: 1,
+                                                  groupValue: groupValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      groupValue = 1;
+                                                      isPiece = false;
+                                                    });
+                                                  },
+                                                  activeColor: Colors.green,),
+                                              TextWidget(
+                                                  text: 'Piece', color: color),
+                                              Radio(
+                                                  value: 2,
+                                                  groupValue: groupValue,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      groupValue = 2;
+                                                      isPiece = true;
+                                                    });
+                                                  },
+                                                  activeColor: Colors.green,)
+                                            ],
                                           )
                                         ]),
                                   )),
@@ -249,7 +279,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
         padding: const EdgeInsets.all(8.0),
         child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-          style:  TextStyle(
+          style: TextStyle(
               fontWeight: FontWeight.w700, fontSize: 20, color: color),
           value: catValue,
           onChanged: (value) {

@@ -4,6 +4,7 @@ import 'package:grocery_admin_panel/responsive.dart';
 import 'package:grocery_admin_panel/services/utils.dart';
 import 'package:grocery_admin_panel/widgets/grid_products.dart';
 import 'package:grocery_admin_panel/widgets/header.dart';
+import 'package:grocery_admin_panel/widgets/orders_list.dart';
 import 'package:grocery_admin_panel/widgets/products_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,8 @@ class DashboardScreen extends StatelessWidget {
                         desktop: ProductsGrid(
                           childAspectRatio: size.width < 1400 ? 0.8 : 1.05, isInMain: true,
                         ),
-                      )
+                      ),
+                      const OrdersList(),
                     ],
                   ),
                 ),

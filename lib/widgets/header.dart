@@ -8,12 +8,15 @@ class Header extends StatelessWidget {
   const Header({
     Key? key,
     required this.fct,
+    required this.title,
+    this.showText = true,
   }) : super(key: key);
-
+  final String title;
   final Function fct;
+  final bool showText;
   @override
   Widget build(BuildContext context) {
-     final theme = Utils(context).getTheme;
+    final theme = Utils(context).getTheme;
     final color = Utils(context).color;
 
     return Row(
@@ -29,13 +32,13 @@ class Header extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Dashboard",
+              title,
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
         if (Responsive.isDesktop(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        Expanded(
+        !showText? Container() : Expanded(
           child: TextField(
             decoration: InputDecoration(
               hintText: "Search",

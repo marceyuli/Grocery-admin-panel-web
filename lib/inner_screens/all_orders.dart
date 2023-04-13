@@ -45,7 +45,7 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                   children: [
                     Header(fct: () {
                       context.read<MenuController>().controlOrdersMenu();
-                    }),
+                    }, title: 'All orders',),
                     const SizedBox(
                       height: 20,
                     ),

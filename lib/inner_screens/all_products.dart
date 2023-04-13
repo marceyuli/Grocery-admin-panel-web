@@ -41,17 +41,28 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Header(fct: () {
-                      context.read<MenuController>().controlProductsMenu();
-                    }),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Header(
+                      fct: () {
+                        context.read<MenuController>().controlProductsMenu();
+                      },
+                      title: 'All products',
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
                     Responsive(
                       mobile: ProductsGrid(
                         crossAxisCount: size.width < 650 ? 2 : 4,
                         childAspectRatio:
-                            size.width < 650 && size.width > 350 ? 1.1 : 0.8, isInMain: false,
+                            size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                        isInMain: false,
                       ),
                       desktop: ProductsGrid(
-                        childAspectRatio: size.width < 1400 ? 0.8 : 1.05, isInMain: false,
+                        childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
+                        isInMain: false,
                       ),
                     )
                   ],

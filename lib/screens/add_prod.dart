@@ -13,6 +13,7 @@ import '../controllers/MenuController.dart';
 
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
+
   const UploadProductForm({super.key});
 
   @override
@@ -21,6 +22,8 @@ class UploadProductForm extends StatefulWidget {
 
 class _UploadProductFormState extends State<UploadProductForm> {
   final formKey = GlobalKey<FormState>();
+  String catValue = 'Vegetables';
+
   late final TextEditingController titleController, priceController;
 
   @override
@@ -166,7 +169,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          //Drop down menu code here
+                                          categoryDropDown(),
                                           const SizedBox(
                                             height: 20,
                                           ),
@@ -234,6 +237,54 @@ class _UploadProductFormState extends State<UploadProductForm> {
                 ]),
               ))
         ],
+      ),
+    );
+  }
+
+  Widget categoryDropDown() {
+    final color = Utils(context).color;
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+          style:  TextStyle(
+              fontWeight: FontWeight.w700, fontSize: 20, color: color),
+          value: catValue,
+          onChanged: (value) {
+            setState(() {
+              catValue = value!;
+            });
+          },
+          hint: const Text('Select a category'),
+          items: const [
+            DropdownMenuItem(
+              child: Text('Vegetables'),
+              value: 'Vegetables',
+            ),
+            DropdownMenuItem(
+              child: Text('Fruits'),
+              value: 'Fruits',
+            ),
+            DropdownMenuItem(
+              child: Text('Grains'),
+              value: 'Grains',
+            ),
+            DropdownMenuItem(
+              child: Text('Nuts'),
+              value: 'Nuts',
+            ),
+            DropdownMenuItem(
+              child: Text('Herbs'),
+              value: 'Herbs',
+            ),
+            DropdownMenuItem(
+              child: Text('Species'),
+              value: 'Species',
+            ),
+          ],
+        )),
       ),
     );
   }

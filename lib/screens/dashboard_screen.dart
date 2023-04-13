@@ -18,6 +18,7 @@ class DashboardScreen extends StatelessWidget {
     Size size = Utils(context).getScreenSize;
     return SafeArea(
       child: SingleChildScrollView(
+        controller: ScrollController(),
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [

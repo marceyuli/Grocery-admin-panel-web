@@ -6,6 +6,7 @@ import 'package:grocery_admin_panel/widgets/text_widget.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../inner_screens/all_orders.dart';
 import '../screens/main_screen.dart';
 
 class SideMenu extends StatefulWidget {
@@ -55,7 +56,12 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "View all order",
-            press: () {},
+            press: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AllOrdersScreen()));
+            },
             icon: IconlyBold.bag_2,
           ),
           SwitchListTile(

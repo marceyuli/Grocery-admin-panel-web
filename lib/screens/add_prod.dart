@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide MenuController;
 import 'package:flutter/services.dart';
 import 'package:grocery_admin_panel/responsive.dart';
@@ -8,6 +11,7 @@ import 'package:grocery_admin_panel/widgets/header.dart';
 import 'package:grocery_admin_panel/widgets/side_menu.dart';
 import 'package:grocery_admin_panel/widgets/text_widget.dart';
 import 'package:iconly/iconly.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/MenuController.dart';
@@ -26,6 +30,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   String catValue = 'Vegetables';
   int groupValue = 1;
   bool isPiece = false;
+  File? _pickedImage;
+  Uint8List webImage = Uint8List(8);
 
   late final TextEditingController titleController, priceController;
 
@@ -230,7 +236,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                             .scaffoldBackgroundColor,
                                         borderRadius:
                                             BorderRadius.circular(12)),
-                                    child: dottedBorder(color: color),                             ),
+                                    child: _pickedImage == null ? dottedBorder(color: color):
+                                            kIsWeb?
+                                            Image.memory(webImage, fit:BoxFit.fill):
+                                            Image.file(_pickedImage!, fit: BoxFit.fill,),
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -284,30 +294,62 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
   }
 
+  Future<void> _pickImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _pickedImage = selected;
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+        setState(() {
+          webImage = f;
+          _pickedImage = File('a');
+        });
+      } else {
+        print('No image has been picked');
+      }
+    } else {
+      print('Something went wrong');
+    }
+  }
+
   Widget dottedBorder({required Color color}) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      
-        child: DottedBorder(
-            dashPattern: const [6.7],
-            borderType: BorderType.RRect,
-            color: color,
-            radius: const Radius.circular(12),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.image_outlined, color: color, size: 50),
-                  const SizedBox(height: 20,),
-                  TextButton(
-                    onPressed: (() {}),
-                    child: TextWidget(text: 'Choose an image', color: Colors.blue),
-                  )
-                ],
-              ),
-            )),
-      
+      child: DottedBorder(
+          dashPattern: const [6.7],
+          borderType: BorderType.RRect,
+          color: color,
+          radius: const Radius.circular(12),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.image_outlined, color: color, size: 50),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: (() {
+                    _pickImage();
+                  }),
+                  child:
+                      TextWidget(text: 'Choose an image', color: Colors.blue),
+                )
+              ],
+            ),
+          )),
     );
   }
 

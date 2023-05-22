@@ -53,6 +53,17 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final isValid = formKey.currentState!.validate();
   }
 
+  void clearForm() {
+    isPiece = false;
+    groupValue = 1;
+    priceController.clear();
+    titleController.clear();
+    setState(() {
+      _pickedImage = null;
+      webImage = Uint8List(8);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Utils(context).getTheme;
@@ -282,7 +293,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ButtonsWidget(
-                                    onPressed: () {},
+                                    onPressed: clearForm,
                                     text: 'Clear form',
                                     icon: IconlyBold.danger,
                                     backgroundColor: Colors.red.shade300),

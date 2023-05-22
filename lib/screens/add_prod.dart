@@ -228,19 +228,27 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    height: size.width > 650
-                                        ? 350
-                                        : size.width * 0.45,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    child: _pickedImage == null ? dottedBorder(color: color):
-                                            kIsWeb?
-                                            Image.memory(webImage, fit:BoxFit.fill):
-                                            Image.file(_pickedImage!, fit: BoxFit.fill,),
-                                  ),
+                                      height: size.width > 650
+                                          ? 350
+                                          : size.width * 0.45,
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      child: _pickedImage == null
+                                          ? dottedBorder(color: color)
+                                          : ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: kIsWeb
+                                                  ? Image.memory(webImage,
+                                                      fit: BoxFit.fill)
+                                                  : Image.file(
+                                                      _pickedImage!,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                            )),
                                 ),
                               ),
                               Expanded(
@@ -249,7 +257,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: Column(
                                       children: [
                                         TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              setState(() {
+                                                _pickedImage = null;
+                                                webImage = Uint8List(8);
+                                              });
+                                            },
                                             child: TextWidget(
                                                 text: 'Clear',
                                                 color: Colors.red)),
